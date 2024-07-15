@@ -42,7 +42,8 @@ export class BoardsService {
 
     // 특정게시글 지우기
     deleteBoard(id: string): void{
-        this.boards = this.boards.filter((board) => board.id !== id);
+        const found = this.getBoardById(id);
+        this.boards = this.boards.filter((board) => board.id !== found.id);
     }
 
     // 특정게시글 수정
