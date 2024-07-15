@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Board, BoardStatus } from './board.model';
 import { v1 as uuid } from 'uuid';
 import { CreateBoardDto } from './dto/create-board.dto';
@@ -31,7 +31,13 @@ export class BoardsService {
 
     // 특정게시글 불러오기
     getBoardById(id: string): Board {
-        return this.boards.find((board) => board.id === id)
+        const found = this.boards.find((board) => board.id === id);
+
+        if(!found) {
+            throw new NotFoundException(`Can't find Board with id ${id}`);
+        }
+
+        return found;
     }
 
     // 특정게시글 지우기
