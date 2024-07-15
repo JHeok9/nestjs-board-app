@@ -1,5 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { BoardsService } from './boards.service';
+import { Board } from './board.model';
 
 @Controller('boards')
 export class BoardsController {
@@ -8,7 +9,7 @@ export class BoardsController {
 
     // Read 모든게시물 데이터 가져오기
     @Get()
-    getAllBoard(){
+    getAllBoard(): Board[] {
         return this.boardService.getAllBoards();
     }
 }
