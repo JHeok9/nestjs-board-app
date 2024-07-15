@@ -39,4 +39,11 @@ export class BoardsService {
         this.boards = this.boards.filter((board) => board.id !== id);
     }
 
+    // 특정게시글 수정
+    updateBoardStatus(id: string, status: BoardStatus): Board {
+        const board = this.getBoardById(id);
+        board.status = status;
+        return board;
+    }
+
 }
