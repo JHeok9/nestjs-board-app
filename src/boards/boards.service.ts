@@ -34,4 +34,9 @@ export class BoardsService {
         return this.boards.find((board) => board.id === id)
     }
 
+    // 특정게시글 지우기
+    deleteBoard(id: string): void{
+        this.boards = this.boards.filter((board) => board.id !== id);
+    }
+
 }
