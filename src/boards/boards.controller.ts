@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { BoardsService } from './boards.service';
 
 @Controller('boards')
@@ -7,7 +7,8 @@ export class BoardsController {
     constructor(private boardService: BoardsService) {}
 
     // Read 모든게시물 데이터 가져오기
-    getAllTask(){
-        this.boardService
+    @Get()
+    getAllBoard(){
+        return this.boardService.getAllBoards();
     }
 }
