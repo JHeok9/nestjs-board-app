@@ -29,4 +29,9 @@ export class BoardsService {
         return board;
     }
 
+    // 특정게시글 불러오기
+    getBoardById(id: string): Board {
+        return this.boards.find((board) => board.id === id)
+    }
+
 }
