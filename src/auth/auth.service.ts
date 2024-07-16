@@ -12,7 +12,7 @@ export class AuthService {
 
     // 유저 회원가입
     async signUp(authCredentialsDto: AuthCredentialsDto): Promise <void> {
-        return this.userRepository.createUser(authCredentialsDto);
+        return this.userRepository.signUp(authCredentialsDto);
     }
 
 }
