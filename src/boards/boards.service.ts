@@ -1,11 +1,17 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Board, BoardStatus } from './board.model';
+import { BoardStatus } from './board-status.enum';
 import { v1 as uuid } from 'uuid';
 import { CreateBoardDto } from './dto/create-board.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { BoardRepository } from './board.repository';
 
 @Injectable()
 export class BoardsService {
-    private boards: Board[] = [];
+    // private boards: Board[] = [];
+    constructor(
+        @InjectRepository(BoardRepository)
+        private boardRepository: BoardRepository,
+    ) {}
 
     // 전체게시글 불러오기
     getAllBoards(): Board[] {
