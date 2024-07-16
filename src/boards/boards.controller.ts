@@ -29,11 +29,11 @@ export class BoardsController {
         return this.boardService.getBoardById(id);
     }
 
-    // // Delete 특정 게시글 데이터 지우기
-    // @Delete('/:id')
-    // deleteBoard(@Param('id') id: string): void{
-    //     this.boardService.deleteBoard(id);
-    // }
+    // Delete 특정 게시글 데이터 지우기
+    @Delete('/:id')
+    deleteBoard(@Param('id') id: number): void{
+        this.boardService.deleteBoard(id);
+    }
 
     // // Update 특정 게시글 업데이트
     // @Patch('/:id/status')

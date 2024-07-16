@@ -47,7 +47,10 @@ export class BoardsService {
     }
 
     // 특정게시글 지우기
-    
+    async deleteBoard(id: number): Promise <void> {
+        const result = await this.boardRepository.delete(id);
+        console.log('result', result);
+    }
 
     // 특정게시글 수정
     
