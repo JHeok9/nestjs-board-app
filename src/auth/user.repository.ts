@@ -2,6 +2,8 @@ import { DataSource, Repository } from "typeorm";
 import { User } from "./user.entity";
 import { InjectDataSource } from "@nestjs/typeorm";
 import { AuthCredentialsDto } from "./dto/auth-credential.dto";
+import { ConflictException, InternalServerErrorException } from "@nestjs/common";
+import * as bcrypt from 'bcryptjs';
 
 export class UserReopository extends Repository<User> {
     constructor(@InjectDataSource() dataSource: DataSource) {
@@ -9,10 +11,26 @@ export class UserReopository extends Repository<User> {
     }
 
     // 유저생성
-    async createUser(authCredentialsDto: AuthCredentialsDto): Promise <void> {
+    async signUp(authCredentialsDto: AuthCredentialsDto): Promise <void> {
         const {username, password} = authCredentialsDto;
-        const user = this.create({username, password});
-        await this.save(user);
+
+        const salt = await bcrypt.genSalt();
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        const user = new User();
+        user.username = username;
+        user.password = hashedPassword;
+
+        try {
+            await user.save();
+        } catch (error) {
+            console.log(error);
+            if(error.code === 'ER_DUP_ENTRY'){ // 중복일시 에러코드
+                throw new ConflictException('Existing username');
+            } else {
+                throw new InternalServerErrorException();
+            }
+        }
     }
     
 }
