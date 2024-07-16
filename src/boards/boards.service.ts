@@ -15,6 +15,9 @@ export class BoardsService {
     ) {}
 
     // 전체게시글 불러오기
+    async getAllBoards(): Promise <Board[]> {
+        return this.boardRepository.find();
+    }
     
 
     // 게시글 생성하기
