@@ -35,13 +35,13 @@ export class BoardsController {
         this.boardService.deleteBoard(id);
     }
 
-    // // Update 특정 게시글 업데이트
-    // @Patch('/:id/status')
-    // updateBoardStatus(
-    //     @Param('id') id: string,
-    //     @Body('status', BoardStatusValidationPipe) status: BoardStatus
-    // ): Board {
-    //     return this.boardService.updateBoardStatus(id, status);
-    // }
+    // Update 특정 게시글 업데이트
+    @Patch('/:id/status')
+    updateBoardStatus(
+        @Param('id') id: number,
+        @Body('status', BoardStatusValidationPipe) status: BoardStatus
+    ): Promise <Board> {
+        return this.boardService.updateBoardStatus(id, status);
+    }
 
 }
