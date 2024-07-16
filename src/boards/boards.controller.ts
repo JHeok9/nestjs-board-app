@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { BoardsService } from './boards.service';
 import { BoardStatus } from './board-status.enum';
 import { CreateBoardDto } from './dto/create-board.dto';
@@ -31,8 +31,8 @@ export class BoardsController {
 
     // Delete 특정 게시글 데이터 지우기
     @Delete('/:id')
-    deleteBoard(@Param('id') id: number): void{
-        this.boardService.deleteBoard(id);
+    deleteBoard(@Param('id', ParseIntPipe) id: number):Promise <void>{
+        return this.boardService.deleteBoard(id);
     }
 
     // Update 특정 게시글 업데이트
