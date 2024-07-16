@@ -22,17 +22,7 @@ export class BoardsService {
 
     // 게시글 생성하기
     async createBoard(createBoardDto: CreateBoardDto): Promise <Board>{
-        const {title, description} = createBoardDto;
-
-        const board = this.boardRepository.create({
-            title,
-            description,
-            status: BoardStatus.PUBLIC
-        })
-
-        await this.boardRepository.save(board);
-
-        return board;
+        return this.boardRepository.createBoard(createBoardDto);
     }
 
     // 특정게시글 불러오기
