@@ -39,7 +39,10 @@ export class BoardsService {
     // 특정게시글 지우기
     async deleteBoard(id: number): Promise <void> {
         const result = await this.boardRepository.delete(id);
-        console.log('result', result);
+        
+        if(result.affected === 0){
+            throw new NotFoundException(`Can't find Board with id ${id}`);
+        }
     }
 
     // 특정게시글 수정
