@@ -5,6 +5,8 @@ import { CreateBoardDto } from './dto/create-board.dto';
 import { BoardStatusValidationPipe } from './pipes/board-status-validation.pipe';
 import { Board } from './board.entity';
 import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from 'src/auth/get-user.decorator';
+import { User } from 'src/auth/user.entity';
 
 @Controller('boards')
 @UseGuards(AuthGuard())
@@ -21,8 +23,11 @@ export class BoardsController {
     // Create 게시글 생성하기
     @Post()
     @UsePipes(ValidationPipe)
-    createBoard(@Body() creatBoardDto: CreateBoardDto): Promise <Board>{
-        return this.boardService.createBoard(creatBoardDto);
+    createBoard(
+        @Body() creatBoardDto: CreateBoardDto,
+        @GetUser() user: User,
+    ): Promise <Board>{
+        return this.boardService.createBoard(creatBoardDto, user);
     }
 
     // Read 특정 게시글 데이터 가져오기
