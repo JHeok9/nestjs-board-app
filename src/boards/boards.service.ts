@@ -58,8 +58,8 @@ export class BoardsService {
     }
 
     // 특정게시글 수정
-    async updateBoardStatus(id: number, status: BoardStatus): Promise <Board> {
-        const board = await this.getBoardById(id);
+    async updateBoardStatus(id: number, status: BoardStatus, user: User): Promise <Board> {
+        const board = await this.getBoardById(id, user);
 
         board.status = status;
         await this.boardRepository.save(board);

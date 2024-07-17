@@ -49,9 +49,10 @@ export class BoardsController {
     @Patch('/:id/status')
     updateBoardStatus(
         @Param('id') id: number,
-        @Body('status', BoardStatusValidationPipe) status: BoardStatus
+        @Body('status', BoardStatusValidationPipe) status: BoardStatus,
+        @GetUser() user: User,
     ): Promise <Board> {
-        return this.boardService.updateBoardStatus(id, status);
+        return this.boardService.updateBoardStatus(id, status, user);
     }
 
 }
