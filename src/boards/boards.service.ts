@@ -38,8 +38,8 @@ export class BoardsService {
     }
 
     // 특정게시글 불러오기
-    async getBoardById(id: number): Promise <Board> {
-        const found = await this.boardRepository.findOneBy({ id });
+    async getBoardById(id: number, user: User): Promise <Board> {
+        const found = await this.boardRepository.findOne({ where: { id, userId: user.id} });
 
         if(!found){
             throw new NotFoundException(`Can't find Board with id ${id}`)

@@ -32,8 +32,11 @@ export class BoardsController {
 
     // Read 특정 게시글 데이터 가져오기
     @Get('/:id') // localhost/boards/{id값}
-    getBoardById(@Param('id') id: number): Promise <Board>{
-        return this.boardService.getBoardById(id);
+    getBoardById(
+        @Param('id') id: number,
+        @GetUser() user: User,
+    ): Promise <Board>{
+        return this.boardService.getBoardById(id, user);
     }
 
     // Delete 특정 게시글 데이터 지우기
