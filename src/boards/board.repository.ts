@@ -7,7 +7,13 @@ import { BoardStatus } from "./board-status.enum";
 import { User } from "src/auth/user.entity";
 
 /*
-EntityRepository 사용불가로인한 TypeORM의 DataSource사용
+TypeORM에서는 EntityReopsitory사용을 비활성화 하였고
+Service 레이어에서 비지니스로직과 데이터베이스 로직을 사용하길 권장
+
+EntityRepository 비활성화로 CustomRepsitory 생성 방식은
+CustomRepositroy에 Injectable 데코레이터를 작성
+TypeORM의 DataSource 주입
+module의 providers에 추가해줘야함
 */
 @Injectable()
 export class BoardRepository extends Repository<Board> {
