@@ -15,9 +15,9 @@ export class BoardsController {
     constructor(private boardService: BoardsService) {}
 
     // Read 모든게시물 데이터 가져오기
-    @Get('/')
-    getAllBoard(): Promise <Board[]> {
-        return this.boardService.getAllBoards();
+    @Get()
+    getAllBoard(@GetUser() user: User): Promise <Board[]> {
+        return this.boardService.getAllBoards(user);
     }
 
     // Create 게시글 생성하기

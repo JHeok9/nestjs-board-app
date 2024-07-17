@@ -16,8 +16,19 @@ export class BoardsService {
     ) {}
 
     // 전체게시글 불러오기
-    async getAllBoards(): Promise <Board[]> {
-        return this.boardRepository.find();
+    async getAllBoards(user: User): Promise <Board[]> {
+        // QueryBuilder를 사용한 데이터베이스 조회 
+        //const query = this.boardRepository.createQueryBuilder('board')
+        //query.where('board.userId = :userId', {userId: user.id})
+        //const boards = await query.getMany();
+        //return boards;
+        
+        const boards = this.boardRepository
+            .createQueryBuilder('board')
+            .where('board.userId = :userId', {userId: user.id})
+            .getMany();
+
+        return boards;        
     }
     
 
