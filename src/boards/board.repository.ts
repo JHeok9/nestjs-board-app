@@ -6,6 +6,9 @@ import { CreateBoardDto } from "./dto/create-board.dto";
 import { BoardStatus } from "./board-status.enum";
 import { User } from "src/auth/user.entity";
 
+/*
+EntityRepository 사용불가로인한 TypeORM의 DataSource사용
+*/
 @Injectable()
 export class BoardRepository extends Repository<Board> {
     constructor(@InjectDataSource() dataSource: DataSource) {
