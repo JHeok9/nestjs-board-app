@@ -41,8 +41,11 @@ export class BoardsController {
 
     // Delete 특정 게시글 데이터 지우기
     @Delete('/:id')
-    deleteBoard(@Param('id', ParseIntPipe) id: number):Promise <void>{
-        return this.boardService.deleteBoard(id);
+    deleteBoard(
+        @Param('id', ParseIntPipe) id: number,
+        @GetUser() user: User,
+    ):Promise <void>{
+        return this.boardService.deleteBoard(id, user);
     }
 
     // Update 특정 게시글 업데이트
