@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Logger, Param, ParseIntPipe, Patch, Post, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { BoardsService } from './boards.service';
 import { BoardStatus } from './board-status.enum';
 import { CreateBoardDto } from './dto/create-board.dto';
@@ -11,12 +11,18 @@ import { User } from 'src/auth/user.entity';
 @Controller('boards')
 @UseGuards(AuthGuard())
 export class BoardsController {
+
+    // 로그 객체 생성
+    private logger = new Logger('BoardController')
+
     // BoardService 사용하기위한 Dependency Injection
     constructor(private boardService: BoardsService) {}
 
     // Read 모든게시물 데이터 가져오기
     @Get()
     getAllBoard(@GetUser() user: User): Promise <Board[]> {
+        // 전체게시글 요청시 로그
+        this.logger.verbose(`User ${user.username} trying to get all boards`)
         return this.boardService.getAllBoards(user);
     }
 
@@ -27,6 +33,10 @@ export class BoardsController {
         @Body() creatBoardDto: CreateBoardDto,
         @GetUser() user: User,
     ): Promise <Board>{
+        // 게시글 생성시 로그 
+        // JSON으로 넘어온 게시글 데이터 JSON.stringfy 사용해 문자열로 변환하여 로그남기기
+        this.logger.verbose(`User ${user.username} creating a new board.
+            Payload: ${JSON.stringify(creatBoardDto)}`)
         return this.boardService.createBoard(creatBoardDto, user);
     }
 
